@@ -6,7 +6,6 @@ const postsRoutes = require("./routes/posts");
 
 const app = express();
 
-mongoose.Promise = global.Promise;
 mongoose
   .connect(
     "mongodb+srv://KarthikBC7:KarthikBC19@cluster0-dklrj.mongodb.net/node-angular?retryWrites=true&w=majority"
