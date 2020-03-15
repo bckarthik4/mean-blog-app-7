@@ -2,6 +2,7 @@
   "name": "mean-course",
   "version": "0.0.0",
   "scripts": {
+    "build":"ng build --prod --aot",
     "start:server": "nodemon server.js"
   },
   "private": true,
