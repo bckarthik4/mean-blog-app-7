@@ -2,6 +2,11 @@ const app = require("./backend/app");
 const debug = require("debug")("node-angular");
 const http = require("http");
 
+
+// Create link to Angular build directory
+var distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
+
 const normalizePort = val => {
   var port = parseInt(val, 10);
 

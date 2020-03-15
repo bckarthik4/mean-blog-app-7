@@ -11,7 +11,7 @@ export class PostsService{
 	constructor(private http:HttpClient,private router:Router){}
 	
 	getPosts(){
-		this.http.get<{message:string,posts:any}>('http://localhost:3000/api/posts')
+		this.http.get<{message:string,posts:any}>('/api/posts')
 		.pipe(map((postData)=>{return postData.posts.map(post=>{
 			return {title:post.title,content:post.content,id:post._id}
 		})}))
@@ -26,12 +26,12 @@ export class PostsService{
 	}
 	
 	getPost(id:string){
-		return this.http.get<{_id:string,title:string,content:string}>('http://localhost:3000/api/posts/'+id);
+		return this.http.get<{_id:string,title:string,content:string}>('/api/posts/'+id);
 	}//checking for id told to be edited present in front end with help of id
 	
 	addPost(title:string,content:string){
 		const post:Post={id:null,title:title,content:content};//initially id is null as we have to push to db to get id
-		this.http.post<{message:string,postId:string}>('http://localhost:3000/api/posts',post).subscribe((responseData)=>{
+		this.http.post<{message:string,postId:string}>('/api/posts',post).subscribe((responseData)=>{
 			console.log(responseData.message);
 			const id=responseData.postId;
 			post.id=id;//updated front end variable with id from db
@@ -43,7 +43,7 @@ export class PostsService{
 		
 	updatePost(id:string,title:string,content:string){
 		const post:Post={id:id,title:title,content:content};
-		this.http.put('http://localhost:3000/api/posts/'+id,post)
+		this.http.put('/api/posts/'+id,post)
 			.subscribe((response)=>{
 				const updatedPosts=[...this.posts];
 				const oldPostIndex=updatedPosts.findIndex(p=>p.id===post.id);
@@ -55,7 +55,7 @@ export class PostsService{
 		}		
 		
     deletePost(postId:string){
-		this.http.delete('http://localhost:3000/api/posts/'+postId).subscribe(()=>{
+		this.http.delete('/api/posts/'+postId).subscribe(()=>{
 			console.log('Deleted');//logs on console of browser
 			const updatedPosts=this.posts.filter(post=>post.id!==postId);//copies all posts except post with id = postId into updatedPosts		
 			this.posts=updatedPosts;
