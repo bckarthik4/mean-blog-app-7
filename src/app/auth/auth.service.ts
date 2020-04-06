@@ -37,9 +37,7 @@ export class AuthService{
 		const authData:AuthData={email:email,password:password};
 		this.http.post<{message:string,result:any}>('/api/user/signup',authData)
 		.subscribe(response=>{
-			if(response.message=="User Exists Already"){
-				window.alert('User Exists Already Please Login!');
-			}
+			console.log(response.message);
 			this.router.navigate(['/login']);
 			});
 	}
