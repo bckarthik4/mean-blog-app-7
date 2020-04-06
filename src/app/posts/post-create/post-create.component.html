@@ -1,28 +1,30 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
+  <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
     <mat-form-field>
       <input
         matInput
         type="text"
-        name="title"
-        [ngModel]="post?.title"
-        required
-        minlength="3"
-        placeholder="Post Title"
-        #title="ngModel">
-      <mat-error *ngIf="title.invalid">Please enter a post title.</mat-error>
+        formControlName="title"
+        placeholder="Post Title">
+      <mat-error *ngIf="form.get('title').invalid">Please enter a post title.</mat-error>
     </mat-form-field>
-    <mat-form-field>
+	<div>
+	<button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
+	<!-- Type is button as by default it will be submit button which will create validation errors due to submitting empty form-->
+	<input type="file" #filePicker (change)="onImagePicked($event)">
+	</div><!--change event means when there is a file selected or selected file is again changed to another file and $event is object which helps to handle change event -->
+    <div class="image-preview" *ngIf="imagePreview!=='' && imagePreview && form.get('image').valid"><!--checks variable has url of image or is it just null or is it just empty string-->
+	<img [src]="imagePreview" [alt]="form.value.title">
+	</div><!--imagePreview will be null if its not instantiated or it will be '' when no file uploaded but its instantiated -->
+	<!-- based on image being jpeg or png form.get will be valid -->
+	<mat-form-field>
       <textarea
         matInput
         rows="4"
-        name="content"
-        [ngModel]="post?.content"
-        required
-        placeholder="Post Content"
-        #content="ngModel"></textarea>
-      <mat-error *ngIf="content.invalid">Please enter a post title.</mat-error>
+        formControlName="content"
+		placeholder="Post Content"></textarea>
+      <mat-error *ngIf="form.get('content').invalid">Please enter a post Content.</mat-error>
     </mat-form-field>
     <button
       mat-raised-button
