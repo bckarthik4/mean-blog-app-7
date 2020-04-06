@@ -14,12 +14,18 @@ router.post('/signup',(req,res,next)=>{
 		email:req.body.email,
 		password:hash
 	});
-	user.save()
-	.then(result=>{
-		res.status(200).json({message:'User Created',result:result});
-	}).catch(err=>{res.status(500).json({error:err})});
-	});
-});
+	user.findOne({email:req.body.email}).then(user=>{
+		if(user){
+			res.status(401).json({message:'User Exists Already'});
+		}
+		else{
+			user.save().then(result=>{
+					res.status(200).json({message:'User Created',result:result});
+					}).catch(err=>{res.status(500).json({error:err})});
+		}
+		});
+		});
+		});
 
 //api/user/login
 //return statements doesnt allow other res objects to execute
