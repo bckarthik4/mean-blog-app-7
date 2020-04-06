@@ -8,9 +8,6 @@ const router=express.Router();
 
 //api/user/signup
 router.post('/signup',(req,res,next)=>{
-	User.findOne({email:req.body.email})
-	.then(user=>{
-		if(!user){
 	bcrypt.hash(req.body.password,10)
 	.then(hash=>{
 	const user=new User({
@@ -20,13 +17,6 @@ router.post('/signup',(req,res,next)=>{
 		user.save().then(result=>{
 			res.status(200).json({message:'User Created',result:result});
 			}).catch(err=>{res.status(500).json({error:err})});
-		
-		});
-		}
-		else
-		{
-			res.status(401).json({message:'User Already Exists',result:user});
-		}
 		});
 	});
 
