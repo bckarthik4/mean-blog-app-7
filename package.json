@@ -3,10 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "build": "ng build",
-	
-	"start": "ng serve",
-
-    "start:server": "node server.js"
+    "start": "node server.js"
   },
   "engines": {
     "node": "10.16.3"
