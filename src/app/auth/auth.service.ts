@@ -35,7 +35,7 @@ export class AuthService{
 	
 	createUser(email:string,password:string){
 		const authData:AuthData={email:email,password:password};
-		this.http.post('/api/user/signup',authData)<{message:string}>
+		this.http.post<{message:string,result:any}>('/api/user/signup',authData)
 		.subscribe(response=>{
 			if(response.message=="User Exists Already"){
 				window.alert('User Exists Already Please Login!');

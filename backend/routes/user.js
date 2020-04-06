@@ -14,9 +14,9 @@ router.post('/signup',(req,res,next)=>{
 		email:req.body.email,
 		password:hash
 	});
-	user.findOne({email:req.body.email}).then(user=>{
+	User.findOne({email:req.body.email}).then(user=>{
 		if(user){
-			res.status(401).json({message:'User Exists Already'});
+			res.status(401).json({message:'User Exists Already',result:user});
 		}
 		else{
 			user.save().then(result=>{
