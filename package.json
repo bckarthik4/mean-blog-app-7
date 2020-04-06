@@ -2,13 +2,11 @@
   "name": "mean-course",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
     "build": "ng build --prod --aot",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "start:server": "node server.js"
+	
+	"start": "ng serve",
+
+    "start:server": "nodemon server.js"
   },
   "private": true,
   "dependencies": {
@@ -33,12 +31,11 @@
     "rxjs": "^6.0.0",
     "zone.js": "^0.9.1",
 	"@angular/cli": "^8.0.0",
-    "@angular/compiler-cli": "^8.0.0"
+    "@angular/compiler-cli": "^8.0.0",
+	"nodemon": "^1.17.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.800.0",
-    "@angular/cli": "^8.0.0",
-    "@angular/compiler-cli": "^8.0.0",
     "@angular/language-service": "^8.0.0",
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
@@ -51,7 +48,6 @@
     "karma-coverage-istanbul-reporter": "~1.4.2",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "nodemon": "^1.17.4",
     "protractor": "~5.3.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
