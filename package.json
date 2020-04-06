@@ -2,11 +2,11 @@
   "name": "mean-course",
   "version": "0.0.0",
   "scripts": {
-    "build": "ng build --prod --aot",
+    "build": "ng build",
 	
 	"start": "ng serve",
 
-    "start:server": "nodemon server.js"
+    "start:server": "node server.js"
   },
   "engines": {
     "node": "10.16.3"
