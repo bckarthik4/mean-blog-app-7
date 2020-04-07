@@ -49,6 +49,8 @@ router.post("",checkAuth,multer({storage:storage}).single("image") ,(req, res, n
 		  imagePath:createdPost.imagePath
 	  }
     });
+  }).catch(err=>{
+	  res.status(500).json({message:'Creating a Post Failed'});
   });
 });//multer will expect single image and will call storage
 
@@ -72,7 +74,7 @@ router.put("/:id",checkAuth,multer({storage:storage}).single("image"), (req, res
 	  else{
 		  res.status(401).json({message:'Not Authorized'});
 	  }
-  });//now only creator can edit on backend since we added creator:req.userData.userId
+  }).catch(err=>{res.status(500).json({message:'Couldnt Update Post'});});//now only creator can edit on backend since we added creator:req.userData.userId
 });
 
 router.get("", (req, res, next) => {
@@ -101,7 +103,7 @@ router.get("", (req, res, next) => {
 			 posts:fetchedPosts,
 			 maxPosts:count
 		  });
-	  });
+	  }).catch(err=>{res.status(500).json({message:'Fetching Posts Failed'});});
 	  });//Post.count gives total number of posts in db
 
 router.get("/:id", (req, res, next) => {
@@ -111,7 +113,7 @@ router.get("/:id", (req, res, next) => {
     } else {
       res.status(404).json({ message: "Post not found!" });
     }
-  });
+  }).catch(err=>{res.status(500).json({message:'Fetching Posts Failed'});});
 });
 
 router.delete("/:id",checkAuth, (req, res, next) => {
@@ -123,7 +125,7 @@ router.delete("/:id",checkAuth, (req, res, next) => {
 		res.status(401).json({message:'Not Authorized'});
 	}//if n=1 then it was deleted by correct user or else it will be unauthorized user
   
-  });
+  }).catch(err=>{res.status(500).json({message:'Deleting Post Failed'})});
 });
 
 module.exports = router;

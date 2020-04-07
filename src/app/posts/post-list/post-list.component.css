@@ -9,6 +9,7 @@ mat-spinner {
 
 mat-paginator {
   margin-top: 1rem;
+  visibility:hidden;
 }
 
 .info-text {

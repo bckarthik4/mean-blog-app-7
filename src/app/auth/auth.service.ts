@@ -35,11 +35,12 @@ export class AuthService{
 	
 	createUser(email:string,password:string){
 		const authData:AuthData={email:email,password:password};
-		this.http.post('/api/user/signup',authData)
-		.subscribe(response=>{
-			this.router.navigate(['/login']);
-			});
-	}
+		this.http.post('/api/user/signup',authData).subscribe(()=>{
+			this.router.navigate(['/']);//if successful signed up to db then navigates to /
+		},error=>{
+			this.authStatusListener.next(false);//kills loader if user is not saved to db as user exists already
+		});
+		}
 	login(email:string,password:string){
 		const authData:AuthData={email:email,password:password};
 		this.http.post<{token:string,expiresIn:number,userId:string}>('/api/user/login',authData)
@@ -57,6 +58,8 @@ export class AuthService{
 			this.saveAuthData(token,expirationDate,this.userId);
 			this.router.navigate(['/']);
 			}
+		},error=>{
+			this.authStatusListener.next(false);//if user enters wrong credentials this block executes
 		});
 	}
 	
